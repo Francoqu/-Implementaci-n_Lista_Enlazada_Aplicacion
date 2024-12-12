@@ -23,15 +23,20 @@ class ListaEnlazada:
     def eliminar(self, dato):
         """Elimina un nodo de la lista."""
         if not self.cabeza:
+            print("La lista está vacía. No se puede eliminar.")
             return
         if self.cabeza.dato == dato:
             self.cabeza = self.cabeza.siguiente
+            print(f"Elemento '{dato}' eliminado.")
             return
         actual = self.cabeza
         while actual.siguiente and actual.siguiente.dato != dato:
             actual = actual.siguiente
         if actual.siguiente:
             actual.siguiente = actual.siguiente.siguiente
+            print(f"Elemento '{dato}' eliminado.")
+        else:
+            print(f"Elemento '{dato}' no encontrado en la lista.")
 
     def buscar(self, dato):
         """Busca un nodo en la lista."""
@@ -73,17 +78,25 @@ class Playlist:
             elif opcion == "2":
                 cancion = input("Nombre de la canción a eliminar: ")
                 self.lista.eliminar(cancion)
-                print(f"Canción '{cancion}' eliminada.")
             elif opcion == "3":
-                print("Playlist:", self.lista.recorrer())
+                canciones = self.lista.recorrer()
+                if canciones:
+                    print("Playlist:", canciones)
+                else:
+                    print("La playlist está vacía.")
             elif opcion == "4":
                 cancion = input("Nombre de la canción a buscar: ")
                 if self.lista.buscar(cancion):
-                    print("La canción está en la playlist.")
+                    print(f"La canción '{cancion}' está en la playlist.")
                 else:
-                    print("La canción no está en la playlist.")
+                    print(f"La canción '{cancion}' no está en la playlist.")
             elif opcion == "5":
                 print("¡Gracias por usar el gestor de playlists!")
                 break
             else:
-                print("Opción no válida.")
+                print("Opción no válida. Inténtalo de nuevo.")
+
+# Ejecución de la aplicación
+if __name__ == "__main__":
+    app = Playlist()
+    app.menu()
